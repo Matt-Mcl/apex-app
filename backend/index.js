@@ -31,7 +31,7 @@ app.listen(PORT, () => {
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../frontend/build')));
 
-app.get('/rankgraph', async (req, res) => res.send(await graph.rankGraph(apexdb)));
+app.get('/getrankgraph', async (req, res) => res.send(await graph.rankGraph(apexdb)));
 
 // All other GET requests not handled before will return the React app
 app.get('*', (req, res) => {

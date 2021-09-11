@@ -8,7 +8,7 @@ class RankGraph extends Component {
   }
 
   async componentDidMount() {
-    const response = await fetch(`${process.env.REACT_APP_API_SERVER}/rankgraph`);
+    const response = await fetch(`${process.env.REACT_APP_API_SERVER}/getrankgraph`);
     const json = await response.json();
     this.setState({ graphData: json });
   }

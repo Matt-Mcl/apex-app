@@ -31,31 +31,23 @@ app.listen(PORT, () => {
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../frontend/build')));
 
+app.get('/rankdata', async (req, res) => res.json(await rankScoreData.find().toArray()));
 app.get('/getrankgraph', async (req, res) => res.send(await graph.rankGraph(apexdb)));
+
+app.get('/arenadata', async (req, res) => res.json(await arenaScoreData.find().toArray()));
+// app.get('/getrankgraph', async (req, res) => res.send(await graph.arenaGraph(apexdb)));
 
 // All other GET requests not handled before will return the React app
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../frontend/build', 'index.html'));
 });
 
-function updateStatus(newStatus) {
-  if (apexAPIStatus !== newStatus) {
-    apexAPIStatus = newStatus;  
-    console.log(`Apex API status changed to ${apexAPIStatus}`);
-  }
-}
-
-// Track apex legends stats API every 10 seconds
+// Track Apex Legends stats every 10 seconds
 async function getApexData() {
   const response = await fetch(`https://api.mozambiquehe.re/bridge?version=5&platform=PC&player=${process.env.APEXNAME}&auth=${process.env.APEXAPIKEY}`);
 
   // If the API doesn't return successfully, pause requests for 1 minute.
-  if (response.status !== 200) {
-    updateStatus(response.status);
-    return setTimeout(getApexData, 60 * 1000);
-  }
-
-  updateStatus(200);
+  if (response.status !== 200) return setTimeout(getApexData, 60 * 1000);
   
   const text = await response.json();
 

@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import RankGraph from "./RankGraph";
+import ArenaGraph from "./ArenaGraph";
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
@@ -18,7 +19,7 @@ function App() {
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/rankgraph">Rank Graph</Nav.Link>
-              {/* <Nav.Link href="/averagegraph">Average Graph</Nav.Link> */}
+              <Nav.Link href="/arenagraph">Arena Graph</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -28,7 +29,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/rankgraph" element={<RankGraph />} />
-          {/* <Route path="/averagegraph" element={<AverageGraph />} /> */}
+          <Route path="/arenagraph" element={<ArenaGraph />} />
         </Routes>
       </Container>
     </>

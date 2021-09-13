@@ -42,7 +42,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../frontend/build', 'index.html'));
 });
 
-// Track Apex Legends stats every 10 seconds
+// Track Apex Legends stats every 20 seconds
 async function getApexData() {
   const response = await fetch(`https://api.mozambiquehe.re/bridge?version=5&platform=PC&player=${process.env.APEXNAME}&auth=${process.env.APEXAPIKEY}`);
 
@@ -80,5 +80,5 @@ async function getApexData() {
     arenaScoreData.insertOne({ score: rankScore, name: rankName, div: rankDiv, img: rankImg, season: rankedSeason })
     console.log('Logged: ',{ score: rankScore, name: rankName, div: rankDiv, img: rankImg, season: rankedSeason })
   }
-  setTimeout(getApexData, 10 * 1000);
+  setTimeout(getApexData, 20 * 1000);
 }

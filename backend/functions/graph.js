@@ -1,6 +1,6 @@
 module.exports = {
-  async createGraph(collection, label) {  
-    const data = await collection.find().toArray();
+  async createGraph(collection, label, seasonName) {  
+    const data = await collection.find({ season: seasonName }).toArray();
     const scores = data.map(item => item.score);
     const dates = data.map(item => new Date(parseInt(item._id.toString().substring(0, 8), 16) * 1000).toLocaleString('en-GB', { hour12: false, timeZone: 'Europe/London' }));
 

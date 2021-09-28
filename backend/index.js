@@ -22,8 +22,6 @@ const app = express();
 const PORT = 8081;
 app.use(cors());
 
-let apexAPIStatus = 200;
-
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
@@ -32,10 +30,13 @@ app.listen(PORT, () => {
 app.use(express.static(path.resolve(__dirname, '../frontend/build')));
 
 app.get('/rankdata', async (req, res) => res.json(await rankScoreData.find().toArray()));
-app.get('/getrankgraph', async (req, res) => res.send(await graph.createGraph(rankScoreData, 'Ranked Data')));
+app.get('/getrankgraph', async (req, res) => res.send(await graph.createGraph(rankScoreData, 'Ranked Data', req.query.season)));
 
 app.get('/arenadata', async (req, res) => res.json(await arenaScoreData.find().toArray()));
-app.get('/getarenagraph', async (req, res) => res.send(await graph.createGraph(arenaScoreData, 'Arena Data')));
+app.get('/getarenagraph', async (req, res) => res.send(await graph.createGraph(arenaScoreData, 'Arena Data', req.query.season)));
+
+app.get('/getrankseasons', async (req, res) => res.json(await rankScoreData.distinct("season")));
+app.get('/getarenaseasons', async (req, res) => res.json(await arenaScoreData.distinct("season")));
 
 // All other GET requests not handled before will return the React app
 app.get('*', (req, res) => {

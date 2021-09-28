@@ -2,7 +2,7 @@ const express = require("express");
 const graph = require("./functions/graph.js");
 const fetch = require('node-fetch');
 const path = require('path');
-const cors = require('cors')
+const cors = require('cors');
 const {MongoClient} = require('mongodb');
 require('dotenv').config({ path: `${__dirname}/.env` });
 
@@ -35,8 +35,8 @@ app.get('/getrankgraph', async (req, res) => res.send(await graph.createGraph(ra
 app.get('/arenadata', async (req, res) => res.json(await arenaScoreData.find().toArray()));
 app.get('/getarenagraph', async (req, res) => res.send(await graph.createGraph(arenaScoreData, 'Arena Data', req.query.season)));
 
-app.get('/getrankseasons', async (req, res) => res.json(await rankScoreData.distinct("season")));
-app.get('/getarenaseasons', async (req, res) => res.json(await arenaScoreData.distinct("season")));
+app.get('/getrankseasons', async (req, res) => res.json((await rankScoreData.distinct("season")).sort().reverse()));
+app.get('/getarenaseasons', async (req, res) => res.json((await arenaScoreData.distinct("season")).sort().reverse()));
 
 // All other GET requests not handled before will return the React app
 app.get('*', (req, res) => {

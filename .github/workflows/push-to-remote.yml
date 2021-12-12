@@ -1,25 +1,24 @@
-name: remote ssh command
-on: [push]
-jobs:
+# name: remote ssh command
+# on: [push]
+# jobs:
 
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-    - name: executing remote ssh commands using ssh key
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        script: |
-          cd apex-app
-          git pull
-          npm i
-          cd frontend
-          npm i
-          npm run build
-          cd ..
-          pm2 stop apex-app
-          pm2 start --name apex-app backend/index.js
-          
+#   build:
+#     name: Build
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: executing remote ssh commands using ssh key
+#       uses: appleboy/ssh-action@master
+#       with:
+#         host: ${{ secrets.HOST }}
+#         username: ${{ secrets.USERNAME }}
+#         key: ${{ secrets.KEY }}
+#         script: |
+#           cd valorant-app
+#           git pull
+#           npm i
+#           cd frontend
+#           npm i
+#           npm run build
+#           cd ..
+#           pm2 stop valorant-app
+#           pm2 start --name valorant-app backend/index.js

@@ -19,7 +19,7 @@ const arenaScoreData = apexdb.collection('arenaScoreData');
 
 // Setup webserver
 const app = express();
-const PORT = 8081;
+const PORT = 9081;
 app.use(cors());
 
 app.listen(PORT, () => {
